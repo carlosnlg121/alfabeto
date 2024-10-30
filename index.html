@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Alfabeto</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #1e90ff;
+        }
+        .game-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        #random-letter {
+            font-size: 80px;
+            font-weight: bold;
+            color: #ff4500;
+            margin: 20px;
+        }
+        #input-container {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            font-size: 24px;
+            padding: 10px;
+            width: 60px;
+            text-align: center;
+        }
+        #message {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Jogo do Alfabeto</h1>
+    <div class="game-container">
+        <div id="random-letter">A</div>
+        <div id="input-container">
+            <input type="text" id="letter-input" maxlength="1" autofocus />
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script>
+        const randomLetterDiv = document.getElementById('random-letter');
+        const letterInput = document.getElementById('letter-input');
+        const messageDiv = document.getElementById('message');
+
+        // Função para gerar uma letra aleatória
+        function generateRandomLetter() {
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const randomIndex = Math.floor(Math.random() * letters.length);
+            const randomLetter = letters[randomIndex];
+            randomLetterDiv.textContent = randomLetter;
+            letterInput.value = "";
+            messageDiv.textContent = "";
+        }
+        
+        // Evento para verificar a letra digitada
+        letterInput.addEventListener('input', function() {
+            const enteredLetter = letterInput.value.toUpperCase();
+            const randomLetter = randomLetterDiv.textContent;
+
+            if (enteredLetter === randomLetter) {
+                messageDiv.textContent = "Correto!";
+                messageDiv.style.color = "green";
+                setTimeout(generateRandomLetter, 500); // Aguarda 0,5s antes de gerar nova letra
+            } else {
+                letterInput.value = ""; // Limpa o campo para nova tentativa
+                messageDiv.textContent = "Tente novamente!";
+                messageDiv.style.color = "red";
+            }
+        });
+
+        // Gera uma letra aleatória inicial
+        generateRandomLetter();
+    </script>
+
+</body>
+</html>
